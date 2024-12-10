@@ -45,6 +45,7 @@ To fully utilize this data we must first clean the data. Using the cleaned data 
 ___
 ## Data Cleaning and Exploratory Data Analysis
 ### Data Cleaning
+First, we had to read our data, which uncovered quirks in the construction of the data table. To properly convert the data into a Panda’s DataFrame we had to account for the empty header rows, the repeated indices, and the unnecessary column labels. Once we sliced the raw data to only start from the 5th row (where the data actually began), we began to construct our DataFrame with the considerations of removing unneeded columns, improving column naming conventions, and creating robust time data. To address these issues we first dropped the columns that were unnecessary to our research question: 'ANOMALY.LEVEL', 'HURRICANE.NAMES', 'PCT_LAND', 'PCT_WATER_TOT','PCT_WATER_INLAND'. Next, we updated the column names to fit our desired naming conventions, making all column names lowercase with underscores representing the spaces between words. Finally, we combined the date and time columns for both outage start and outage resotatino to create a comprehensive ‘outage_start’ and ‘outage_restoration’ DateTime column.
 
 
 ### Exploratory Data Analysis
