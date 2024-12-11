@@ -206,9 +206,38 @@ Below is a histogram representing the results of 1000 simulated TVDs under our d
 __Conclusion__ <br>
 With a p-value of 0.069, we we fail to reject the null hypothesis in this permutation test, and conclude that the missingness of the `'cause_category_detail'` column is not likely to be MAR with respect to `'nerc_region'`.
 
+Understanding our data and its missingness mechanisms creates deeper insights into the relationships between columns. Using dependency within columns we can better account for missingness within the dataset, and better understand how to utilize data to avoid skewing the results of future models and tests.
+
 
 ___
 ## Hypothesis Testing
+
+Building on the framework developed in our exploratory statistical analysis, we have decided to examine the economic factors underlying the causes of power outages. Further pursuing how an economic situation affects the cause of the power outage we sought to answer whether an outage caused by an intentional attack has a higher likelihood of occurring in an urban or rural setting. Acts of sabotage or vandalism fall under the umbrella of intentional attacks. By analyzing the setting these attacks take place we can better understand the living conditions that would spur this behavior.
+
+__Null Hypothesis__:
+- An outage that is caused by an intentional attack is equally likely to occur in an urban or rural setting. 
+
+__Alternative Hypothesis__:
+- An outage that is caused by an intentional attack has a higher liklihood of occuring in an urban setting.
+
+__Significance Level__:
+- This permutation test used a significance level of 0.01. This choice is stricter than the standard 0.05 level, but it is valid in this scenario because we are handling a problem that could create stringest real-world affects (increased intentional attack protection) so it is important to be very certain in handling our hypothesis.
+
+__Test Statistic__:
+- This permutation test used the test statistic of difference in means. Since we hypothesize that outage caused by intentional attacks occur more in urban areas in our alternate hypothesis (backed by findings from our initial EDA), the test statistic must point in a direction. Therefore, the valid statistic to use is difference in means, which is perfect for illustrating a directional result. 
+
+The empiricial distribution for this permutation test is below. 
+
+<iframe
+  src="assets/hyp_test.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+__Conclusion__:
+
+The test yielded a significant result, with a p-value of 0.0002, which suggests that intentional attacks occur at a higher frequency in urban settings versus rural ones. However, this finding is not comprehensive, as other confounding factors, such as population density, infrastructure differences, and regional law enforcement presence, could also contribute to the observed frequency and may need to be considered in further analysis.
 
 
 ___
