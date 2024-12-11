@@ -99,13 +99,14 @@ Pursuing the line of thought on highly-populated cities potentially impacting po
 
 <iframe
   src="assets/pop_state_gsp_quadratic.html"
-  width="800"
+  width="1000"
   height="600"
   frameborder="0"
 ></iframe>
 
 #### Aggregation
 To further understand the utility experience residents of urban areas underwent we explored the cause category column. We created a pivot table indexed by both state and its urban population percent, and then displayed the outage duration proportions for each cause category. Longer outages were almost always dominated by severe weather instances, which is stagnant with our initial univariate analysis of cause category. A solid amount of overall outage durations were made up of intentional attacks - which were common in areas of high urban population percentage. We also noticed that many states had their overall outage duration dominated by a specific category, leading us to conclude that the data had many large outliers, such as the fuel supply emergency outages making up 46% of California's outage duration. This aggregation combined a lot of the economic markers we were interested in, and set us up to delve into these with further testing. 
+
 |                                 |   equipment failure |   fuel supply emergency |   intentional attack |   islanding |   public appeal |   severe weather |   system operability disruption |
 |:--------------------------------|--------------------:|------------------------:|---------------------:|------------:|----------------:|-----------------:|--------------------------------:|
 | ('Alabama', 59.04)              |         0           |             0           |          0.0513761   | 0           |       0         |         0.948624 |                      0          |
@@ -157,6 +158,7 @@ To further understand the utility experience residents of urban areas underwent 
 | ('West Virginia', 48.72)        |         0           |             0           |          0.000107458 | 0           |       0         |         0.999893 |                      0          |
 | ('Wisconsin', 70.15)            |         0           |             0.934671    |          0.0126287   | 0           |       0.0106753 |         0.042025 |                      0          |
 | ('Wyoming', 64.76)              |         0.30602     |             0           |          0.00167224  | 0.160535    |       0         |         0.531773 |                      0          |
+   
 
 
 ___
