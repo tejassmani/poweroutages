@@ -106,14 +106,57 @@ Pursuing the line of thought on highly-populated cities potentially impacting po
 
 #### Aggregation
 To further understand the utility experience residents of urban areas underwent we explored the cause category column. We created a pivot table indexed by both state and its urban population percent, and then displayed the outage duration proportions for each cause category. Longer outages were almost always dominated by severe weather instances, which is stagnant with our initial univariate analysis of cause category. A solid amount of overall outage durations were made up of intentional attacks - which were common in areas of high urban population percentage. We also noticed that many states had their overall outage duration dominated by a specific category, leading us to conclude that the data had many large outliers, such as the fuel supply emergency outages making up 46% of California's outage duration. This aggregation combined a lot of the economic markers we were interested in, and set us up to delve into these with further testing. 
-
-|   equipment failure |   fuel supply emergency |   intentional attack |   islanding |   public appeal |   severe weather |   system operability disruption |
-|--------------------:|------------------------:|---------------------:|------------:|----------------:|-----------------:|--------------------------------:|
-|          0          |                0        |            0.0513761 | 0           |        0        |         0.948624 |                       0         |
-|          0.00515079 |                0        |            0.0237866 | 0           |        0        |         0.956763 |                       0.0142995 |
-|          0.0237484  |                0        |            0.123906  | 0.000678526 |        0.240586 |         0.611081 |                       0         |
-|          0.0398765  |                0.467644 |            0.0719145 | 0.0163254   |        0.154102 |         0.222506 |                       0.0276324 |
-|          0          |                0        |            0.037428  | 0.000639795 |        0        |         0.872441 |                       0.0894914 |
+|                                 |   equipment failure |   fuel supply emergency |   intentional attack |   islanding |   public appeal |   severe weather |   system operability disruption |
+|:--------------------------------|--------------------:|------------------------:|---------------------:|------------:|----------------:|-----------------:|--------------------------------:|
+| ('Alabama', 59.04)              |         0           |             0           |          0.0513761   | 0           |       0         |         0.948624 |                      0          |
+| ('Arizona', 89.81)              |         0.00515079  |             0           |          0.0237866   | 0           |       0         |         0.956763 |                      0.0142995  |
+| ('Arkansas', 56.16)             |         0.0237484   |             0           |          0.123906    | 0.000678526 |       0.240586  |         0.611081 |                      0          |
+| ('California', 94.95)           |         0.0398765   |             0.467644    |          0.0719145   | 0.0163254   |       0.154102  |         0.222506 |                      0.0276324  |
+| ('Colorado', 86.15)             |         0           |             0           |          0.037428    | 0.000639795 |       0         |         0.872441 |                      0.0894914  |
+| ('Connecticut', 87.99)          |         0           |             0           |          0.0212504   | 0           |       0         |         0.97875  |                      0          |
+| ('Delaware', 83.3)              |         0.0222974   |             0           |          0.0173558   | 0           |       0         |         0.960347 |                      0          |
+| ('District of Columbia', 100.0) |         0.0322967   |             0           |          0           | 0           |       0         |         0.967703 |                      0          |
+| ('Florida', 91.16)              |         0.048007    |             0           |          0.00432886  | 0           |       0.374013  |         0.555842 |                      0.0178089  |
+| ('Georgia', 75.07)              |         0           |             0           |          0.0705537   | 0           |       0         |         0.929446 |                      0          |
+| ('Hawaii', 91.93)               |         0           |             0           |          0           | 0           |       0         |         0.808019 |                      0.191981   |
+| ('Idaho', 70.58)                |         0           |             0           |          0.151093    | 0           |       0.760626  |         0        |                      0.0882811  |
+| ('Illinois', 88.49)             |         0.0243039   |             0.450356    |          0.236515    | 0           |       0.0195736 |         0.269251 |                      0          |
+| ('Indiana', 72.44)              |         4.54895e-05 |             0.556791    |          0.0191909   | 0.00570135  |       0         |         0.205762 |                      0.212509   |
+| ('Iowa', 64.02)                 |         0           |             0           |          0.627845    | 0           |       0         |         0.372155 |                      0          |
+| ('Kansas', 74.2)                |         0           |             0           |          0.0518484   | 0           |       0.0843808 |         0.863771 |                      0          |
+| ('Kentucky', 58.38)             |         0.0366084   |             0.705779    |          0.00606397  | 0           |       0         |         0.251549 |                      0          |
+| ('Louisiana', 73.19)            |         0.00463582  |             0.740592    |          0           | 0           |       0.0357339 |         0.188945 |                      0.0300934  |
+| ('Maine', 38.66)                |         0           |             0.388947    |          0.0191844   | 0.204453    |       0         |         0.387416 |                      0          |
+| ('Maryland', 87.2)              |         0           |             0           |          0.0496709   | 0           |       0         |         0.883314 |                      0.0670156  |
+| ('Massachusetts', 91.97)        |         0           |             0.590142    |          0.0784372   | 0           |       0         |         0.317744 |                      0.0136768  |
+| ('Michigan', 74.57)             |         0.685009    |             0           |          0.0941989   | 2.59126e-05 |       0.0279338 |         0.125201 |                      0.0676319  |
+| ('Minnesota', 73.27)            |         0           |             0           |          0.093425    | 0           |       0         |         0.906575 |                      0          |
+| ('Mississippi', 49.35)          |         0           |             0           |          0.0384615   | 0           |       0         |         0        |                      0.961538   |
+| ('Missouri', 70.44)             |         0           |             0           |          0.0823109   | 0           |       0         |         0.904576 |                      0.0131133  |
+| ('Montana', 55.89)              |         0           |             0           |          0.729412    | 0.270588    |       0         |         0        |                      0          |
+| ('Nebraska', 73.13)             |         0           |             0           |          0           | 0           |       0.0470368 |         0.952963 |                      0          |
+| ('Nevada', 94.2)                |         0           |             0           |          1           | 0           |       0         |         0        |                      0          |
+| ('New Hampshire', 60.3)         |         0           |             0           |          0.0361991   | 0           |       0         |         0.963801 |                      0          |
+| ('New Jersey', 94.68)           |         0           |             0           |          0.0126343   | 0           |       0         |         0.883587 |                      0.103778   |
+| ('New Mexico', 77.43)           |         0           |             0.303393    |          0.696607    | 0           |       0         |         0        |                      0          |
+| ('New York', 87.87)             |         0.0091112   |             0.61555     |          0.0114013   | 0           |       0.0979362 |         0.2226   |                      0.0434007  |
+| ('North Carolina', 66.09)       |         0           |             0           |          0.368732    | 0           |       0         |         0.602774 |                      0.0284934  |
+| ('North Dakota', 59.9)          |         0           |             0           |          0           | 0           |       1         |         0        |                      0          |
+| ('Ohio', 77.92)                 |         0           |             0           |          0.0511859   | 0           |       0         |         0.675982 |                      0.272832   |
+| ('Oklahoma', 66.24)             |         0           |             0           |          0.0126742   | 0.16482     |       0.11792   |         0.704585 |                      0          |
+| ('Oregon', 81.03)               |         0.0692064   |             0           |          0.136373    | 0           |       0         |         0.794421 |                      0          |
+| ('Pennsylvania', 78.66)         |         0.0574411   |             0           |          0.233253    | 0           |       0         |         0.659045 |                      0.050261   |
+| ('South Carolina', 66.33)       |         0           |             0           |          0           | 0           |       0         |         1        |                      0          |
+| ('South Dakota', 56.65)         |         0           |             0           |          0           | 1           |       0         |         0        |                      0          |
+| ('Tennessee', 66.39)            |         0.0862999   |             0           |          0.0365279   | 0           |       0.576757  |         0.296143 |                      0.00427227 |
+| ('Texas', 84.7)                 |         0.0198527   |             0.681335    |          0.0146237   | 0           |       0.0558192 |         0.188683 |                      0.0396858  |
+| ('Utah', 90.58)                 |         0.00381992  |             0           |          0.0362347   | 0           |       0.579354  |         0.243711 |                      0.13688    |
+| ('Vermont', 38.9)               |         0           |             0           |          1           | 0           |       0         |         0        |                      0          |
+| ('Virginia', 75.45)             |         0           |             0           |          0.000971449 | 0           |       0.331993  |         0.549976 |                      0.11706    |
+| ('Washington', 84.05)           |         0.162774    |             0.000135194 |          0.0502749   | 0.00991426  |       0.0335282 |         0.739993 |                      0.00337986 |
+| ('West Virginia', 48.72)        |         0           |             0           |          0.000107458 | 0           |       0         |         0.999893 |                      0          |
+| ('Wisconsin', 70.15)            |         0           |             0.934671    |          0.0126287   | 0           |       0.0106753 |         0.042025 |                      0          |
+| ('Wyoming', 64.76)              |         0.30602     |             0           |          0.00167224  | 0.160535    |       0         |         0.531773 |                      0          |
 
 
 ___
