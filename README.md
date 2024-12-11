@@ -63,7 +63,8 @@ While this is not the entire list of manipulation we performed on the data, it c
 
 #### Univariate Analysis
 
-The first form of univariate analysis we carried out was a simple one - visualzing the number of power outages by state using a Folium heatmap. 
+The first form of univariate analysis we carried out was a simple one - visualzing the number of power outages by state using a Folium heatmap. It is clear that the trend in our data shows that most power outages happen in states with more developed industrial sectors overall - such as California, Texas, and Michigan. 
+
 
 <iframe
   src="assets/num_outages_per_state.html"
@@ -72,8 +73,14 @@ The first form of univariate analysis we carried out was a simple one - visualzi
   frameborder="0"
 ></iframe>
 
+We were chiefly concerned between the relationship of outages and gross state product, with our assumption being that less developed states would suffer more frequent outages. This initial assumption was not met by our state count of outages, so we were less confident it would stand once we visualized on gross state product. The geographical distribution is presented below:
 
-
+<iframe
+  src="assets/total_real_gsp_by_state.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 ___
 ## Assessment of Missingness
 
