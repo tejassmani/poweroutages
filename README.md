@@ -105,7 +105,7 @@ Pursuing the line of thought on highly-populated cities potentially impacting po
 ></iframe>
 
 #### Aggregation
-To further understand the utility experience residents of urban areas underwent we explored the cause category column. We created a pivot table indexed by both state and its urban population percent, and then displayed the outage duration proportions for each cause category. Longer outages were almost always dominated by severe weather instances, which is stagnant with our initial univariate analysis of cause category. A solid amount of overall outage durations were made up of intentional attacks - which were common in areas of high urban population percentage. We also noticed that many states had their overall outage duration dominated by a specific category, leading us to conclude that the data had many large outliers, such as the fuel supply emergency outages making up 46% of California's outage duration. This aggregation combined a lot of the economic markers we were interested in, and set us up to delve into these with further testing. 
+To further understand the utility experience residents of urban areas underwent we explored the cause category column. We created a pivot table indexed by both state and its urban population percent, and then displayed the outage duration proportions for each cause category. Longer outages were almost always dominated by severe weather instances, which is stagnant with our initial univariate analysis of cause category. A solid amount of overall outage durations were made up of intentional attacks - which were common in areas of high urban population percentage. We also noticed that many states had their overall outage duration dominated by a specific category, leading us to conclude that the data had many large outliers, such as the fuel supply emergency outages making up 46% of California's outage duration. This aggregation combined a lot of the economic markers we were interested in, and set us up to delve into these with further testing. The first 10 rows of this aggregation are provided here.
 
 |                                 |   equipment failure |   fuel supply emergency |   intentional attack |   islanding |   public appeal |   severe weather |   system operability disruption |
 |:--------------------------------|--------------------:|------------------------:|---------------------:|------------:|----------------:|-----------------:|--------------------------------:|
@@ -121,9 +121,49 @@ To further understand the utility experience residents of urban areas underwent 
 | ('Georgia', 75.07)              |          0          |                0        |           0.0705537  | 0           |        0        |         0.929446 |                       0         |
 
 
-
 ___
 ## Assessment of Missingness
+
+### NMAR Data
+
+Before conducting tests using our cleaned data we needed to address missingness. Data can be defined as NMAR (Not Missing at Random) if the chance that a value is missing depends on the actual missing value. Essentially, it is non-ignorable, the fact that the data is missing data in and of itself that we cannot ignore. Let's delve into some columns we believed were NMAR within the dataset.
+
+After querying to find missing values we found nearly all columns contained missing values. Upon analyzing the columns with missing values we believe that `'customers_affected'` and `'demand_loss_mw'` are NMAR. These columns accounted for a majority of the missing values within the dataset. When considering the possible ways these values could be missing we determined that the data was plausibly NMAR. This is because companies could fail to report the demand loss or customers affected by an outage if the values were deemed insignificant. However, to rule out the possibility that `'demand_loss_mw'` and `'customers_affected'`’s missingness is independent of any other statistic we would like to collect company-specific data such as locale and gross profit. This is due to our belief that smaller companies could be less compliant in providing this counting data as they lack the infrastructure needed to make these assessments.
+
+### Missing Dependencies
+
+Now, we will take a more nuanced approach in proving a missigness dependency. Our column of choice to examine missigness will be `'cause_category_detail'`. The following process involves constructing and performing a permutation test to determine whether the missing data within `'cause_category_detail'` is NMAR on another specific column or not. 
+
+#### Permutation Test 1
+
+__Null Hypothesis__:
+- The missingness of `'cause_category_detail'` is independent of `'cause_category'`.(Missing values are evenly distributed across outage categories, indicating no relationship between `'cause_category'` and missingness.)
+
+__Alternative Hypothesis__:
+- The missingness of `'cause_category_detail'` is dependent on `'cause_category'`. (Missingness varies significantly across outage categories, indicating a relationship between `'cause_category'` and missingness.)
+
+__Significance Level__<br>
+For this permutation test, we will use a significance level of 0.05.
+
+__Observed__ <br>
+Below are the observed distributions of the `'cause_category_detail'` column with and without missing `'cause_category'` values.
+
+<iframe
+  src="assets/category_missing.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+We will use TVD (Total Variation Distance) as our test statistic for the permutation test since we are comparing two categorical distributions. 
+
+__Simulated__ <br>
+Below is a histogram representing the results of 1000 simulated TVDs under our defined Null Hypothesis.
+
+<iframe src="assets/category_missing_perm_test.html" width="800" height="600" frameborder="0"></iframe>
+
+__Conclusion__ <br>
+With a p-value of 0.0, we reject the Null Hypothesis in this permutation test, and determine that the missingness of `'cause_category_detail'` is highly likely to be MAR (Missing at Random) with respect to `'cause_category'`.
 
 
 ___
