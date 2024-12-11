@@ -93,6 +93,29 @@ In addition to visualizing where power outages are typically occurring, we wante
   frameborder="0"
 ></iframe>
 
+#### Bivariate Analysis
+
+Pursuing the line of thought on highly-populated cities potentially impacting power outages we then created a plot with two variables: Population vs. Total Real GSP. We colored our data points to better illustrate the gradual increase in GSP as population simeltaneously increased, even finding that a quadratic fit line was very strong in explaining the trend of the data. 
+
+<iframe
+  src="assets/pop_state_gsp_quadratic.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+#### Aggregation
+To further understand the utility experience residents of urban areas underwent we explored the cause category column. We created a pivot table indexed by both state and its urban population percent, and then displayed the outage duration proportions for each cause category. Longer outages were almost always dominated by severe weather instances, which is stagnant with our initial univariate analysis of cause category. A solid amount of overall outage durations were made up of intentional attacks - which were common in areas of high urban population percentage. We also noticed that many states had their overall outage duration dominated by a specific category, leading us to conclude that the data had many large outliers, such as the fuel supply emergency outages making up 46% of California's outage duration. This aggregation combined a lot of the economic markers we were interested in, and set us up to delve into these with further testing. 
+
+|   equipment failure |   fuel supply emergency |   intentional attack |   islanding |   public appeal |   severe weather |   system operability disruption |
+|--------------------:|------------------------:|---------------------:|------------:|----------------:|-----------------:|--------------------------------:|
+|          0          |                0        |            0.0513761 | 0           |        0        |         0.948624 |                       0         |
+|          0.00515079 |                0        |            0.0237866 | 0           |        0        |         0.956763 |                       0.0142995 |
+|          0.0237484  |                0        |            0.123906  | 0.000678526 |        0.240586 |         0.611081 |                       0         |
+|          0.0398765  |                0.467644 |            0.0719145 | 0.0163254   |        0.154102 |         0.222506 |                       0.0276324 |
+|          0          |                0        |            0.037428  | 0.000639795 |        0        |         0.872441 |                       0.0894914 |
+
+
 ___
 ## Assessment of Missingness
 
