@@ -296,10 +296,48 @@ This model yielded improved results for both short and long power outages - repr
 
  Nonetheless, our final model was able to predict the length of outage based on economic situation with an F-1 score of 0.67, which demonstrated an improvement of about 7% from the initial baseline model. 
 
+### Future Modifications
+
+Through analyzing power outage data we were able to gain a new understanding of the economic influence in outage severity and restoration.This analysis highlights the significant role economic factors play in understanding power outages in the United States. By examining relationships between state-level gross product, urban population density, and outage causes, we revealed disparities in outage frequency and restoration times. States with higher urban populations and economic output experience more frequent outages, often due to their dense infrastructure. Intentional attacks were found to be more likely in urban areas, emphasizing socio-economic drivers behind such incidents.
+
+Our predictive modeling showed moderate success in classifying outage durations using economic indicators, with the final XGBoost model achieving an F-1 score of 0.67. However, challenges remain in improving predictions for long outages. This underscores the complexity of economic and infrastructural factors influencing restoration efforts. Future research could benefit from additional granular data to enhance the accuracy of models and explore equitable strategies for addressing outage disparities.
 
 
 ___
 ## Fairness Analysis
+
+### Group Breakdown
+
+As our model focuses on predicting outage duration, it is fitting to determine its performance on different economic groups. One of the key divisions we analyzed was urban vs. rural, and we will consider this grouping again when evaluating whether our model is fair in classifying outage duration for these two groups. The fairness analysis will reveal whether the model is potentially biased to one of these groups, and is a vital point of analysis to be carried out before considering real-world implications. 
+
+For this fairness analysis, I will utilize the `'is_urban'` column to split the data. 
+
+### Permutation Test
+
+__Null Hypothesis:__
+- The model performs equally well for both urban and rural power outages. There is no difference in precision between the two groups (urban and rural).
+
+__Alternative Hypothesis:__
+- The model's precision differs between the two groups (urban vs. rural). Specifically, it suggests that urban and rural power outages are predicted with different levels of precision, implying potential bias or unfairness.
+
+__Test Statistic:__
+We will conduct this test using the test statistic of the difference in precision between the urban and rural groups. Since precision is our chosen metric for the fairness analysis, using the difference in this metric between the two groups is a testing statistic that is valid for the problem choice. 
+
+__Significance Level:__
+We will use a significance level of 0.01 for this test, so that to only reject the null hypothesis with sound evidence. 
+
+__Simulated__<br>
+Below is a histogram representing the results of 1000 simulated precision differences under the null hypothesis. 
+
+<iframe
+  src="assets/fairness.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+__Conclusion__<br>
+With this p-value, we fail to reject the null hypothesis. We conclude that it is highly likely that our model is fair between the groups of rural and urban settings for power outages. 
 
 ___
 
