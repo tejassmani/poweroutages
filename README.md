@@ -337,7 +337,7 @@ Below is a histogram representing the results of 1000 simulated precision differ
 ></iframe>
 
 __Conclusion__<br>
-With this p-value, we fail to reject the null hypothesis. We conclude that it is highly likely that our model is fair between the groups of rural and urban settings for power outages. 
+With a p-value of 0.2360, we fail to reject the null hypothesis. We conclude that it is likely that our model is fair between the groups of rural and urban settings for power outages. 
 
 ___
 
