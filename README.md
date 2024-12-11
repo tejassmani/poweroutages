@@ -254,8 +254,49 @@ To evaluate the accuracy of our baseline and final model we will use a weighted 
 ___
 ## Baseline Model
 
+To begin constructing our initial model we first split the available data into a training set and test set, using 75% of the data to train and 25% to test. Next, we selected economic features we felt would influence the duration of an outage such as its cause, the region in which the outage occurred, and the state’s gross product. We then OneHot encoded our two categorical columns, `'cause_category'` and `'climate_region'`, which were both nominal. We applied no scaler to the lone numerical column, `'total_realgsp'`.
+
+### Feature Rationale
+
+- `'cause_category'`: As observed from our EDA, we know that there is a well-defined relationship between the causes of power outages and their count, and we suspect a similar relationship with outage duration as well. With values like severe weather and equipment failure, there seems to be very voiltale types of outages - which we beleive will correlate with duration.
+- `'climate_region'`: This feature was selected due to the high number of severe weather power outages within the data. We believe there is a correlation between the climate region and the likeliehood of the area to experience a weather-based outage. Additionally, outages may be more prone to occur in certain climates.
+- `'total_realgsp'`: Keeping the economic theme of the analysis, this feature was key to explaining how certain states saw more power outages than others. We believe that this played a strong role in determining how long outages last as the amount of real GSP could impact the restoration infrastructure an area has to stop outages. 
+
+We decided to fit a random forest classification model onto our preprocessed data. After fitting we evaluated our model and analyzed the results. Our model was successful at predicting short and long outages with an F-1 score of 0.68 for each class, however, for medium outages we had a F-1 score of 0.12. This yielded us a respectable weighted average score of 0.60. 
+
+### Potential Improvements
+
+Although we have obtained a good model that predicts short and long  outages reliably, our goal for the final model is to reduce the number of false negative predictions for medium outages. A model that overpredicts outage duration would be preferable than one that underestimates, and we aimed to address this in the final model through robust feature engineering. Additionally, we wanted to test out a variety of different classifiers to test if certain model structures were better for the classification we are trying to accomplish. 
+
+
 ___
 ## Final Model
+
+To improve upon our initial model we decided to engineer new features, use numerical transformers, and change our model classifier. First, we engineered a feature to capture the interaction between utilities sales and the density of the urban population due to the belief that sales increased dramatically in densely populated urban areas. We included this feature along with new economic features from our existing dataset:'`popden_urban'`, `'total_sales'`, and '`nerc_region'`. These new features provide additional context about the economic situations influencing outage duration, which enables our final model to make more accurate predictions. We again applied a OneHot encoding to our categorical columns, `'cause_category'`, '`nerc_region'`, and '`climate_region'`. For our final model we also included numerical transformations such a log, quantile, and standard scaling. This ensures all our numerical features are scaled evenly, which aids in classifying. 
+
+### Feature Rationale
+The following explains our feature choices in detail for the new features we added in the final model. 
+
+- `'popden_urban'`: We wanted to specify the population density of urban states within the model, believing that this category specifically had a profound affect on outage durations. More densely urban areas had more power outages but also would likely posess more infrastructure to stop outages sooner. We hoped to include this angle into our final model. 
+- `'nerc_region'`: The NERC region represents the power electric company that handles an outage, depending on if it falls within their specified region of care. Certain regions (such as those in more economically-sound areas) may be better equipped to stop outages, and adding the company metric allowed us to account for another detail in the complex situation of mitigating outage durations. 
+- `'sales_popden_interaction'`: The product of the '`total_sales'` column and `'popden_urban'` column. We believed these two columns to posess a linear relationship, due to more electricity consumption taking places in more urban areas. Creating an interaction feature for these two columns could increase its presence in helping classify our prediction problem. 
+- `'log_realgsp'`: After plotting the distribution of this variable, we found it to be extremely skewed right. Performing a log transformer on the column could potentially limit the outliers influence on the final model. 
+
+
+Using our preprocessed data we then fit our new model classifier, Extreme Gradient Boosting Classifier. While we tested many additional classification models aside from our baseline RandomForest, such as Support Vector Classifier, Decision Tree, and Logistic REgression the XGBoost classifier performed the best on our data. Utilizing a GridSearch CV, we efficiently tuned our hyperparameters: the number of estimators, max tree depth, learning rate, and loss function. As well as efficiently finding the best hyperparameter combination XGBoost has a sequential construction, which allows subsequent trees to correct the errors made by their predecessors. Our hope was that this construction could help improve the mistakes made when predicting the medium power outages. We found the best combination of hyperparameters to be a 100 estimator, max depth of 3, learning rate of 1, and mlogloss. Additionally, we introduced a validation set with 5 folds - in hopes for the model to learn based on its training output and create a more nuanced test set output. A detailed classification result heatmap for the final model is presented below. 
+
+<iframe
+  src="assets/classification_report.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+This model yielded improved results for both short and long power outages - represented by Class 0 and 1 in the above heatmap at a 74% and 77% F1-Score, which contributed to a higher overall weightage. We were, however, unsuccessful in substantially raising our accuracy for medium power outages, getting up to 13%. This can likely be explained by the fact that the 5-16 hour range is hard to differentiate in comparison to longer and shorter ranges. Finding what features are best at predicting this range is the biggest area of improvement for future analysis. It is notable that our recall saw the biggest increase overall from the baseline model, showing the effect of an improvement of our parameter tuning with cross-validation. 
+
+ Nonetheless, our final model was able to predict the length of outage based on economic situation with an F-1 score of 0.67, which demonstrated an improvement of about 7% from the initial baseline model. 
+
+
 
 ___
 ## Fairness Analysis
