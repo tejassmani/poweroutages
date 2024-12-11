@@ -43,7 +43,7 @@ The dataset utilized in this project is comprised of 1534 rows and 56 columns, w
 To fully utilize this data we must first clean the data. Using the cleaned data we can then perform exploratory data analysis to better understand any relations within our data pertaining to economic markers and power outages. After which we will then analyze missingness to diagnose dependency within the data. After handling missing data as necessary, we will attempt to answer this analysis's central question through hypothesis testing and predictive modeling. 
 
 ___
-## Data Cleaning and Exploratory Data Analysis
+## Data Cleaning & Exploratory Data Analysis
 ### Data Cleaning
 First, we had to read our data, which uncovered quirks in the construction of the data table. To properly convert the data into a Panda’s DataFrame we had to account for the empty header rows, the repeated indices, and the unnecessary column labels. Once we sliced the raw data to only start from the 5th row (where the data actually began), we began to construct our DataFrame with the considerations of removing unneeded columns, improving column naming conventions, and creating robust time data. To address these issues we first dropped the columns that were unnecessary to our research question: `'ANOMALY.LEVEL'`, `'HURRICANE.NAMES'`, `'PCT_LAND'`, `'PCT_WATER_TOT'`,`'PCT_WATER_INLAND'`. Next, we updated the column names to fit our desired naming conventions, making all column names lowercase with underscores representing the spaces between words. Finally, we combined the date and time columns for both outage start and outage restoration to create a comprehensive `‘outage_start’` and `‘outage_restoration’` DateTime columns.
 
@@ -60,6 +60,17 @@ While this is not the entire list of manipulation we performed on the data, it c
 
 
 ### Exploratory Data Analysis
+
+#### Univariate Analysis
+
+The first form of univariate analysis we carried out was a simple one - visualzing the number of power outages by state using a Folium heatmap. 
+
+<iframe
+  src="assets/num_outages_per_state.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 
 
