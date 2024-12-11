@@ -81,6 +81,18 @@ We were chiefly concerned between the relationship of outages and gross state pr
   height="600"
   frameborder="0"
 ></iframe>
+
+The plot backs up our skepticism, as it shows that states with a higher average real GSP typically have more frequent outages. The two heatmaps overlap in which states are typically seeing more outages as well - leading us to believe that this correlation does exist in some capacity. However, these states also contain numerous large cities, leaving us to wonder about the role of how urban an area is affecting its power outage count. 
+
+In addition to visualizing where power outages are typically occurring, we wanted to look into how they were caused. The following bar chart displays Power Outages by Cause Category, where it is increasingly clear that both severe weather and surprisingly, intentional attacks make up the most power outage causes in our dataset. We were particularly intrigued by the intentional attack category containing such a large make-up of outages, setting the stage for a future hypothesis test. 
+
+<iframe
+  src="assets/count_outages_caues_category.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
 ___
 ## Assessment of Missingness
 
