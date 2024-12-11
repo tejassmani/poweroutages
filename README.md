@@ -160,7 +160,12 @@ We will use TVD (Total Variation Distance) as our test statistic for the permuta
 __Simulated__ <br>
 Below is a histogram representing the results of 1000 simulated TVDs under our defined Null Hypothesis.
 
-<iframe src="assets/category_missing_perm_test.html" width="800" height="600" frameborder="0"></iframe>
+<iframe
+  src="assets/category_missing_perm_test.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 __Conclusion__ <br>
 With a p-value of 0.0, we reject the Null Hypothesis in this permutation test, and determine that the missingness of `'cause_category_detail'` is highly likely to be MAR (Missing at Random) with respect to `'cause_category'`.
