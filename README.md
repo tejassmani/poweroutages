@@ -158,7 +158,7 @@ Below are the observed distributions of the `'cause_category_detail'` column wit
 We will use TVD (Total Variation Distance) as our test statistic for the permutation test since we are comparing two categorical distributions. 
 
 __Simulated__ <br>
-Below is a histogram representing the results of 1000 simulated TVDs under our defined Null Hypothesis.
+Below is a histogram representing the results of 1000 simulated TVDs under our defined null hypothesis.
 
 <iframe
   src="assets/category_missing_perm_test.html"
@@ -168,7 +168,43 @@ Below is a histogram representing the results of 1000 simulated TVDs under our d
 ></iframe>
 
 __Conclusion__ <br>
-With a p-value of 0.0, we reject the Null Hypothesis in this permutation test, and determine that the missingness of `'cause_category_detail'` is highly likely to be MAR (Missing at Random) with respect to `'cause_category'`.
+With a p-value of 0.0, we reject the null hypothesis in this permutation test, and determine that the missingness of `'cause_category_detail'` is highly likely to be MAR (Missing at Random) with respect to `'cause_category'`.
+
+#### Permutation Test 2
+
+__Null Hypothesis__:
+- The missingness of `'cause_category_detail'` is independent of `'nerc_region'`.(Missing values are evenly distributed across outage categories, indicating no relationship between `'nerc_region'` and missingness.)
+
+__Alternative Hypothesis__:
+- The missingness of `'cause_category_detail'` is dependent on `'nerc_region'`. (Missingness varies significantly across outage categories, indicating a relationship between `'cause_category'` and missingness.)
+
+__Significance Level__<br>
+For this permutation test, we will use a significance level of 0.05.
+
+__Observed__ <br>
+Below are the observed distributions of the `'cause_category_detail'` column with and without missing `'nerc_region'` values.
+
+<iframe
+  src="assets/nerc_missing.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+We will once again use TVD as our test statistic for the permutation test since we are comparing two categorical distributions. 
+
+__Simulated__ <br>
+Below is a histogram representing the results of 1000 simulated TVDs under our defined null hypothesis.
+
+<iframe
+  src="assets/nerc_missing_perm_test.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+__Conclusion__ <br>
+With a p-value of 0.069, we we fail to reject the null hypothesis in this permutation test, and conclude that the missingness of the `'cause_category_detail'` column is not likely to be MAR with respect to `'nerc_region'`.
 
 
 ___
