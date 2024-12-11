@@ -261,7 +261,7 @@ To begin constructing our initial model we first split the available data into a
 - `'climate_region'`: This feature was selected due to the high number of severe weather power outages within the data. We believe there is a correlation between the climate region and the likeliehood of the area to experience a weather-based outage. Additionally, outages may be more prone to occur in certain climates.
 - `'total_realgsp'`: Keeping the economic theme of the analysis, this feature was key to explaining how certain states saw more power outages than others. We believe that this played a strong role in determining how long outages last as the amount of real GSP could impact the restoration infrastructure an area has to stop outages. 
 
-We decided to fit a random forest classification model onto our preprocessed data. After fitting we evaluated our model and analyzed the results. Our model was successful at predicting short and long outages with an F-1 score of 0.68 for each class, however, for medium outages we had a F-1 score of 0.12. This yielded us a respectable weighted average score of 0.60. 
+We decided to fit a random forest classification model onto our preprocessed data. After fitting we evaluated our model and analyzed the results. Our model was successful at predicting short and long outages with an F-1 score of 0.68 for each class, however, for medium outages we had a F-1 score of 0.12. This yielded us a respectable weighted average score of 0.62. 
 
 ### Potential Improvements
 
@@ -293,7 +293,7 @@ Using our preprocessed data we then fit our new model classifier, Extreme Gradie
 
 This model yielded improved results for both short and long power outages - represented by Class 0 and 1 in the above heatmap at a 74% and 77% F1-Score, which contributed to a higher overall weightage. We were, however, unsuccessful in substantially raising our accuracy for medium power outages, getting up to 13%. This can likely be explained by the fact that the 5-16 hour range is hard to differentiate in comparison to longer and shorter ranges. Finding what features are best at predicting this range is the biggest area of improvement for future analysis. It is notable that our recall saw the biggest increase overall from the baseline model, showing the effect of an improvement of our parameter tuning with cross-validation. 
 
- Nonetheless, our final model was able to predict the length of outage based on economic situation with an F-1 score of 0.67, which demonstrated an improvement of about 7% from the initial baseline model. 
+ Nonetheless, our final model was able to predict the length of outage based on economic situation with an F-1 score of 0.67, which demonstrated an improvement of about 5% from the initial baseline model. 
 
 ### Future Modifications
 
